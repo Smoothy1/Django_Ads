@@ -1,0 +1,13 @@
+{% extends "ads/base.html" %}
+
+{% block content %}
+<h1>Добавить объявление</h1>
+<form action="{% url 'add_ads' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for fm in form %}
+    <p><label class="form-label" for="{{ fm.id_for_label }}">{{ fm.label }}:</label>{{ fm }}</p>
+    <div class="form-error">{{fm.errors}}</div>
+    {% endfor %}
+    <button type="submit">Добавить</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+<h1>{{ ads.name }}</h1>
+<h2>{{ads.year}} года, {{ads.price}} рублей</h2>
+{% if ads.photo%}
+    <p><img class='img-article-left' src="{{ads.photo.url}}"></p>
+{% endif %}
+
+{% endblock %}
