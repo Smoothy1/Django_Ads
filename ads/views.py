@@ -1,4 +1,6 @@
+from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse_lazy
@@ -111,7 +113,7 @@ def filter_ads(request):
     return render(request, 'ads/filter_ads.html', context=context)
 
 
-def login(request):
+def user_login(request):
     context = {
         'menu': menu
     }
@@ -161,6 +163,30 @@ class RegisterUser(CreateView):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
         return context
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = 'ads/login.html'
+    success_url = reverse_lazy('register')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 
 

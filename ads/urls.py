@@ -10,6 +10,7 @@ urlpatterns = [
     path('add_ads', AddAds.as_view(), name='add_ads'),
     path('ads/<slug:ads_slug>', ShowAds.as_view(), name='ads'),
     path('category/<slug:cat_slug>', ShowCat.as_view(), name='cat'),
-    path('login/', login, name='login'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('logout', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
 ]
