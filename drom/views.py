@@ -3,23 +3,30 @@ import requests
 from bs4 import BeautifulSoup as bs
 import re
 from .models import *
+from celery import Celery
+
+app = Celery('myapp', broker='redis://localhost:6379/0')
 
 
 def mainPage(request):
     return render(request, 'drom/main.html')
 
-
+@app.task
 def pars():
     ads_list = []
     for i in range(1, 5):
+        print(i)
         url = f"https://auto.drom.ru/all/page{i}/"
         r = requests.get(url)
         soup = bs(r.text, "html.parser")
         all_ads = soup.find_all('a', class_='css-xb5nz8 e1huvdhj1')
         if all_ads:
             for ads in all_ads:
+                if ads.find('div', class_='css-12hunv3'):
+                    title = ads.find('div', class_='css-12hunv3').text
+                else:
+                    title = ads.find('div', class_='css-1wgtb37').text
                 name_url = ads.get('href')
-                title = ads.find('div', class_='css-1wgtb37 e3f4v4l2').text
                 name = title.split(',')[0]
                 mark = name.split()[0]
                 model = ' '.join(name.split()[1:])
@@ -68,3 +75,7 @@ def load(request):
         'ads': ad
     }
     return render(request, 'drom/load.html', context=context)
+
+
+def about(request):
+    return render(request, 'drom/about.html')
