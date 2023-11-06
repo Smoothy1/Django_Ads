@@ -8,8 +8,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
+    path('captcha/', include('captcha.urls')),
     re_path(r'^about', views.about, name='about'),
-    path('ads/', include('ads.urls'))
+    path('ads/', include('ads.urls')),
+    path('drom/', include('drom.urls'))
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
