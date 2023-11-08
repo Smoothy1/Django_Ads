@@ -3,4 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('', main_page, name='main'),
+    path('sneakers/<int:sneak_id>', show_sneak, name='sneak'),
 ]
