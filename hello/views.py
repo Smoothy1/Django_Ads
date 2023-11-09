@@ -1,5 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView
+
+from .forms import *
 from .models import *
 
 
@@ -27,6 +31,20 @@ def order_sneak(request, sneak_slug):
         'cur_price': cur_price,
     }
     return render(request, 'hello/order.html', context=context)
+
+
+class CreateOrder(CreateView):
+    slug_url_kwarg = 'sneak_slug'
+    context_object_name = 'sneak'
+    form_class = FormOrder
+    model = Sneakers
+    template_name = 'hello/order.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 def about(request):
     return render(request, 'hello/about.html')

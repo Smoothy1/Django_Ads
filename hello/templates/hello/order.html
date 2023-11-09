@@ -2,5 +2,13 @@
 {% block content %}
 <h1>Сделать заказ</h1>
 <h2>{{ sneak.name }}</h2>
+<form action="{{ sneak.get_url_order }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for fm in form %}
+    <p><label class="form-label" for="{{ fm.id_for_label }}">{{ fm.label }}:</label>{{ fm }}</p>
+    <div class="form-error">{{fm.errors}}</div>
+    {% endfor %}
+    <button type="submit">Добавить</button>
+</form>
 <p>К оплате {{ cur_price }} рублей</p>
 {% endblock %}

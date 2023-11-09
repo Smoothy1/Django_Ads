@@ -38,5 +38,5 @@ class Category(models.Model):
 
 class Order(models.Model):
     customer_name = models.CharField(max_length=255, verbose_name='Название')
-    customer_tg = models.EmailField(max_length=255, verbose_name='Название')
+    customer_mail = models.EmailField(max_length=255, verbose_name='Название')
     customer_phone = models.CharField(max_length=20, verbose_name='Название')
