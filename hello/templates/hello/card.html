@@ -1,14 +1,12 @@
 {% extends 'hello/base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{ sneak.name }}</h5>
-        <img src="{{ sneak.photo.url }}" class="card-img-top" alt="...">
-        <p class="card-text">{{ sneak.base_price }}</p>
-        <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
-      </div>
-  </div>
+<div class="container">
+
+  <h5 class="card-title">{{ sneak.name }}</h5>
+  <img src="{{ sneak.photo.url }}" class="img-fluid" alt="...">
+  <p class="card-text">{{ sneak.base_price }}</p>
+  <a href="{{ sneak.get_url_order }}" class="btn btn-primary">Купить</a>
 </div>
+
 {% endblock %}

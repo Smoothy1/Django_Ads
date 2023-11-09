@@ -8,7 +8,7 @@
         <h5 class="card-title">{{ sneak.name }}</h5>
         <img src="{{ sneak.photo.url }}" class="card-img-top" alt="...">
         <p class="card-text">{{ sneak.base_price }}</p>
-        <a href="{% url 'sneak' %}" class="btn btn-primary">Открыть кроссы</a>
+        <a href="{{ sneak.get_url }}" class="btn btn-primary">Открыть кроссы</a>
       </div>
   </div>
   {% endfor %}

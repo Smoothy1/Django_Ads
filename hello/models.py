@@ -21,8 +21,11 @@ class Sneakers(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('ads', kwargs={'sneak_id': self.pk})
+    def get_url(self):
+        return reverse('sneak', kwargs={'sneak_slug': self.slug})
+
+    def get_url_order(self):
+        return reverse('order', kwargs={'sneak_slug': self.slug})
 
 
 class Category(models.Model):
@@ -31,3 +34,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name_cat
+
+
+class Order(models.Model):
+    customer_name = models.CharField(max_length=255, verbose_name='Название')
+    customer_tg = models.EmailField(max_length=255, verbose_name='Название')
+    customer_phone = models.CharField(max_length=20, verbose_name='Название')
